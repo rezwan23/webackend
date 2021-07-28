@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,10 +21,23 @@ Route::middleware('auth:api')->get('/authorized-user', function (Request $reques
 });
 
 
+
 Route::group(['prefix' => 'auth'], function () {
+
+    //Auth routes starts
+
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/authenticated-user-profile', [AuthController::class, 'userProfile']);    
+    Route::get('/authenticated-user', [AuthController::class, 'userProfile']);
+
+    Route::get('/unauthenticated-user', function(){
+        return response(['message' => 'Unauthenticated!'], 401);
+    })->name('unauthenticated');
+    
+    //Auth routes end
+
+    // Resouce Controller for Product
+    Route::apiResource('photos', ProductController::class);
 });
