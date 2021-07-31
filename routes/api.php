@@ -20,7 +20,9 @@ Route::middleware('auth:api')->get('/authorized-user', function (Request $reques
     return $request->user();
 });
 
-
+Route::get('/test', function(){
+    return response(['message' => 'Test Data!']);
+});
 
 Route::group(['prefix' => 'auth'], function () {
 
@@ -28,8 +30,6 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/authenticated-user', [AuthController::class, 'userProfile']);
 
     Route::get('/unauthenticated-user', function(){

@@ -75,28 +75,6 @@ class AuthController extends Controller
 
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function logout() 
-    {
-        auth()->logout();
-
-        return response(['message' => 'User successfully signed out']);
-    }
-
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function refresh()
-    {
-        return $this->createNewToken(auth()->refresh());
-    }
-
-    /**
      * Get the authenticated User.
      *
      * @return \Illuminate\Http\Response
