@@ -16,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/authorized-user', function (Request $request) {
-    return $request->user();
-});
 
 Route::get('/test', function(){
     return response(['message' => 'Test Data!']);
@@ -38,6 +35,17 @@ Route::group(['prefix' => 'auth'], function () {
     
     //Auth routes end
 
-    // Resouce Controller for Product
-    Route::apiResource('photos', ProductController::class);
+    
 });
+
+
+Route::middleware('auth:api')->get('/authorized-user', function (Request $request) {
+    return $request->user();
+});
+
+// Resouce Controller for Product
+// Middleware added in controller
+
+Route::apiResource('products', ProductController::class);
+
+

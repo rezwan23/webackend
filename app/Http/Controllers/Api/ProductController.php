@@ -9,14 +9,19 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response(['products' => Product::all()]);
+        return response(['products' => Product::paginate(10)]);
     }
 
     /**
@@ -40,7 +45,7 @@ class ProductController extends Controller
         $request->validate([
             'title' =>  'required',
             'description'   =>  'required',
-            'image' =>  'required|image|max:220',
+            'image' =>  'required|image|max:3320',
             'price' =>  'required|numeric'
         ]);
 
@@ -92,7 +97,7 @@ class ProductController extends Controller
         ];
 
         if($request->hasFile('image')){
-            $validationArr = array_merge($validationArr, ['image' => 'image|max:220']);
+            $validationArr = array_merge($validationArr, ['image' => 'image|max:3320']);
         }
 
         $request->validate($validationArr);
