@@ -33,9 +33,8 @@ Route::group(['prefix' => 'auth'], function () {
         return response(['message' => 'Unauthenticated!'], 401);
     })->name('unauthenticated');
     
-    //Auth routes end
+    //Auth routes end\
 
-    
 });
 
 
@@ -47,5 +46,3 @@ Route::middleware('auth:api')->get('/authorized-user', function (Request $reques
 // Middleware added in controller
 
 Route::apiResource('products', ProductController::class);
-
-
